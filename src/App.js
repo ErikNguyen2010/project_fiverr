@@ -1,21 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
-import { Route, Router, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
-import { Fragment } from 'react';
+import HomePage from './pages/HomePage/HomePage';
 
 export const history = createBrowserHistory();
 
 function App() {
   return (
-    <Router history={history}>
+    <Router>
       <Switch>
-        <Route excat path={'/'} render={(propsRoute)=>{
-          return <Fragment>
-              
-          </Fragment>
-        }}/>
+        <Route exact path='/' component={HomePage}/>
       </Switch>
+      Rô
     </Router>
   );
 }
