@@ -1,0 +1,128 @@
+.personal__gig{
+    .personalgig__work{
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        div{
+            img{
+                width: 80%;
+            }
+            h1{
+                @include text($c-text, $fs-md, $fw-bold);
+
+            }
+            span{
+                @include text($c-text, $fs-md, $fw-regular);
+
+            }
+            a{
+                display: block;
+                margin-top: 10px;
+                @include text($c-primary, $fs-md, $fw-bold);
+
+
+            }
+        }
+    }
+    .ant-card-body{
+        display: none;
+    }
+}
+
+
+.personal__gig{
+    .personalgig__create{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        div{
+            span{
+                display: block;
+                @include text($c-text, $fs-base, $fw-regular);
+            }
+            a{
+                background-color: $c-primary;
+                @include text($c-white, $fs-base, $fw-bold);
+                &:hover{
+                    background-color: #19a463;
+                }
+            }
+        }
+    }
+}
+
+
+.personal__gig{
+    .personalgig__job{
+        .container{
+            .row{
+                align-items: center;
+                .col-3{
+                    .content{
+                        .personal__img{
+                            background-image: url("../../../../image/image1.png");
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            background-size: cover;
+                            padding-top: 100%;
+                            width: 30vh;
+                        }
+                        i{
+
+                        }
+                        span{
+
+                        }
+                    }
+                }
+                .col-9{
+                    .content{
+                        width: 200px;
+                        h1{
+                            @include text($c-text, $fs-2xl, $fw-semibold);
+                        }
+                        p{
+                            @include text($c-text, $fs-base, $fw-regular);
+                        }
+                    }
+                }
+                .col-6{
+                    .content{
+                        div{
+                            margin-left: 35px;
+                        }
+                        i{
+
+                        }
+                        span{
+                            @include text($c-text, $fs-base, $fw-regular);
+                        }
+                        .personal__btn{
+                            margin-left: 8rem;
+                            .btn-detail{
+                                background-color: $c-primary;
+                                @include text($c-white, $fs-base, $fw-bold);
+                                &:hover{
+                                    background-color: #19a463;
+                                }
+                            }
+                            .btn-edit{
+                                background-color: $c-text;
+                                @include text($c-white, $fs-base, $fw-bold);
+                                border: none;
+                                &:hover{
+                                    opacity: 0.8;
+                                }
+                                margin: 0 20px;
+                            }
+                            .btn-delete{
+                                @include text($c-white, $fs-base, $fw-bold);
+                               
+                            }
+                        }
+                    }
+                }
+            }
+        }    
+    }
+}

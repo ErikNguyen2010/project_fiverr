@@ -1,19 +1,17 @@
 import React from 'react';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import {
-    AutoComplete,
     Button,
-    Cascader,
     Checkbox,
-    Col,
     Form,
     Input,
-    InputNumber,
-    Row,
     Select,
-    Modal
+    Modal,
+    Card,
   } from 'antd';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { userRegisterAPI } from '../../redux/reducer/userReducer'
+import {useDispatch} from 'react-redux'
+import { NavLink } from 'react-router-dom';
 const { Option } = Select;
 
 const formItemLayout = {
@@ -72,21 +70,36 @@ const prefixSelector = (
     </Select>
 </Form.Item>
 );
-
+const userRegisterRef = useRef({
+    email:"",
+    password: "",
+    phone: "" ,
+    first_name: "",
+})
+const dispatch = useDispatch()
+const handleChange = (e) =>{
+    let {value, id} = e.target
+    userRegisterRef.current[id] = value
+    console.log(userRegisterRef.current);
+}
+const handleSubmit = (e) =>{
+    const action = userRegisterAPI(userRegisterRef.current)
+    dispatch(action)
+}
 const handleCancel = () => {
 setIsModalVisible(false);
 };
  
   return (
-    <section className='register'>
+    <section className='register' style={{backgroundColor: "#f7f7f7"}}>
          <div className='container'>
         <div className="row">
           <div className="col-12">
             <div className="content">
-            <Button type="primary" onClick={showModal}>
-            Register
-            </Button>
-            <Modal destroyOnClose={true} visible={isModalVisible} onCancel={handleCancel}>
+            <div className="site-card-border-less-wrapper">
+              <Card
+              bordered={true}
+              style={{width: "40%", margin: "0 auto", boxShadow: "0 0 8px #95979d"}}>
             <h1 className='register__header'>Join Fiverr</h1>
                     <div className='register__apps'>
                       <a href="https://www.facebook.com/" className='btn-facebook btn btn-primary'>
@@ -109,10 +122,11 @@ setIsModalVisible(false);
                     </div>
                     <div className="register__form">
                         <Form
+                            preserve={false}
                             {...formItemLayout}
                             form={form}
                             name="register"
-                            onFinish={onFinish}
+                            onFinish={handleSubmit}
                             scrollToFirstError
                             initialValues={{
                                 prefix: '84',
@@ -132,7 +146,8 @@ setIsModalVisible(false);
                                 },
                                 ]}
                             >
-                                <Input />
+                             <Input id='email' onChange={handleChange} placeholder="Email" />
+
                             </Form.Item>
 
                             <Form.Item
@@ -146,7 +161,7 @@ setIsModalVisible(false);
                                 ]}
                                 hasFeedback
                             >
-                                <Input.Password />
+                                 <Input.Password  id='password' onChange={handleChange} placeholder="Password" />
                             </Form.Item>
 
                             <Form.Item
@@ -170,7 +185,7 @@ setIsModalVisible(false);
                                 }),
                                 ]}
                             >
-                                <Input.Password />
+                                 <Input.Password  id='password' onChange={handleChange} placeholder="Password" />
                             </Form.Item>
 
                             <Form.Item
@@ -185,7 +200,7 @@ setIsModalVisible(false);
                                 },
                                 ]}
                             >
-                                <Input />
+                                <Input id='first_name' onChange={handleChange} placeholder="First Name" />
                             </Form.Item>
 
                             <Form.Item
@@ -199,6 +214,9 @@ setIsModalVisible(false);
                                 ]}
                             >
                                 <Input
+                                 onChange={handleChange}
+                                id="phone"
+                                placeholder="phone"
                                 addonBefore={prefixSelector}
                                 style={{
                                     width: '100%',
@@ -229,12 +247,13 @@ setIsModalVisible(false);
                                 </div>
                                 <div>
                                     <span className='register__text'>Already member?</span> 
-                                    <a className='register__register' href="">Login now!</a>
+                                    <NavLink className='register__register' to="/login">Login now!</NavLink>
                                 </div>
                             </Form.Item>
                         </Form>
                     </div>
-            </Modal>
+            </Card>
+            </div>
             </div>
           </div>
         </div>

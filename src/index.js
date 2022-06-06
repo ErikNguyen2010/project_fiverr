@@ -9,6 +9,7 @@ import './assets/scss/index.scss'
 import 'antd/dist/antd.css';
 
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>

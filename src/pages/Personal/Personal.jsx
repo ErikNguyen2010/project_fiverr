@@ -1,6 +1,6 @@
 import React from 'react'
-import PersonalGig from './PersonalGig/PersonalGig'
-import PersonalInfo from './PersonalInfo/PersonalInfo'
+import PersonalInfo from '../../components/PersonalInfo/PersonalInfo'
+import PersonalGig from '../../components/PersonalGig/PersonalGig'
 
 export default function Personal() {
   return (
