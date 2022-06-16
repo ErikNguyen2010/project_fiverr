@@ -77,7 +77,7 @@ export default function PersonalGig() {
                         </div>
                       </div>
 
-                      <div class="row">
+                      <div className="row">
                         <div className="col-6">
                             <div className="content">
                               <div>

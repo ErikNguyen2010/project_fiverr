@@ -1,12 +1,14 @@
-import React, { useRef } from 'react'
+import React, { memo, useRef } from 'react'
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Card, Checkbox, Form, Input, } from 'antd';
 import {useDispatch} from 'react-redux'
 import { userLoginAPI } from '../../redux/reducer/userReducer';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
+import { USER_LOGIN } from '../../util/setting';
 
 
-export default function Login(props) {
+ function Login(props) {
+
   const [form] = Form.useForm();
   console.log(form);
   
@@ -22,7 +24,10 @@ export default function Login(props) {
   const handleChange = (event) =>{
     let {id,value} = event.target
     userLoginRef.current[id] = value
-    console.log(userLoginRef.current);
+  }
+  if(localStorage.getItem(USER_LOGIN)){
+    alert('Bạn đã đăng nhập rồi! ')
+    return <Redirect to="/home"/>
   }
   return (
     <section className="login" style={{backgroundColor: "#f7f7f7"}}>
@@ -122,6 +127,6 @@ export default function Login(props) {
       </section>
   )
 }
-
+export default memo(Login)
 
 

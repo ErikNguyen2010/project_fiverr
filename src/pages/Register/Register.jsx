@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
     Button,
     Checkbox,
@@ -11,7 +11,8 @@ import {
 import { useState, useRef } from 'react';
 import { userRegisterAPI } from '../../redux/reducer/userReducer'
 import {useDispatch} from 'react-redux'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
+import { USER_LOGIN } from '../../util/setting';
 const { Option } = Select;
 
 const formItemLayout = {
@@ -48,7 +49,7 @@ wrapperCol: {
 
 
 
-export default function Register() {
+function Register() {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [form] = Form.useForm();
 
@@ -80,7 +81,6 @@ const dispatch = useDispatch()
 const handleChange = (e) =>{
     let {value, id} = e.target
     userRegisterRef.current[id] = value
-    console.log(userRegisterRef.current);
 }
 const handleSubmit = (e) =>{
     const action = userRegisterAPI(userRegisterRef.current)
@@ -89,7 +89,10 @@ const handleSubmit = (e) =>{
 const handleCancel = () => {
 setIsModalVisible(false);
 };
- 
+if(localStorage.getItem(USER_LOGIN)){
+    alert('Bạn đã có tài khoản rồi! ')
+    return <Redirect to="/home"/>
+  } 
   return (
     <section className='register' style={{backgroundColor: "#f7f7f7"}}>
          <div className='container'>
@@ -262,3 +265,4 @@ setIsModalVisible(false);
     </section>
   )
 }
+export default memo(Register)

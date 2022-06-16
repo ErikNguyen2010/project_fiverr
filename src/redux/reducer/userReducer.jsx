@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { history } from '../../App';
-import { ACCESSTOKEN, DOMAIN, http, USER_LOGIN } from '../../util/setting';
+import { TOKEN, DOMAIN, http, USER_LOGIN } from '../../util/setting';
 
 // Kiểm tra trong localStorage đã có thông tin đăng nhập hay chưa, nếu có rồi thì không cần đăng nhập lại
 let user = {};
@@ -11,6 +11,7 @@ const initialState = {
     userLogin: user,
     userRegister : {},
     userInfo: {},
+    arrUser: [],
 
 
 }
@@ -28,11 +29,14 @@ const userReducer = createSlice({
         },
         infoAPI: (state,action) =>{
             state.userInfo = action.payload
+        },
+        getArrUser: (state,action) =>{
+            state.arrUser = action.payload
         }
   }
 });
 
-export const {loginAPI,registerAPI, infoAPI} = userReducer.actions
+export const {getArrUser ,loginAPI,registerAPI, infoAPI} = userReducer.actions
 
 export default userReducer.reducer
 
@@ -41,10 +45,10 @@ export const userLoginAPI = (userLogin) =>{
     return async dispatch =>{
         try{
             let result = await http.post('api/auth/signin', userLogin)
-            console.log(result);
+            console.log(result.data);
             let usLogin = result.data.user
             localStorage.setItem(USER_LOGIN, JSON.stringify(usLogin))
-            localStorage.setItem(ACCESSTOKEN, result.data.token)
+            localStorage.setItem(TOKEN, result.data.token)
             const action = loginAPI(usLogin)
             dispatch(action)
             alert("Đăng nhập thành công")
@@ -84,7 +88,65 @@ export const userInfoAPI = (userID) =>{
     return async dispatch =>{
         try{
             let result = await http.get(`/api/users/${userID}`)
-            console.log(result);
+            const action = infoAPI(result.data)
+            dispatch(action)
+        }  
+        catch(error){
+            console.log(error.response?.data);
+        }
+    }
+}
+
+
+export const getArrUserAPI = (name = "") =>{
+    return async dispatch =>{
+        try{
+            if(name.toLowerCase().trim() !== ""){
+                let result = await http.get(`/api/users/${name}`)
+                dispatch(getArrUser(result.data))
+            }else{
+                let result = await http.get(`/api/users`)
+                dispatch(getArrUser(result.data))
+            }
+        }  
+        catch(error){
+            console.log(error.response?.data);
+        }
+    }
+}
+
+export const themNguoiDung = (form) =>{
+    return async dispatch =>{
+        try{
+            let result = await http.post(`/api/users`,  form)
+            alert("Thêm người dùng thành công!")
+            history.push("/admin/user")
+        }  
+        catch(error){
+            console.log(error.response?.data);
+        }
+    }
+}
+
+export const timKiemUser = (name) =>{
+    return async dispatch =>{
+        try{
+            let result = await http.get(`/api/users/pagination-search?name=${name}&skip=0&limit=2`)
+            dispatch(getArrUser(result.data))
+        }  
+        catch(error){
+            console.log(error.response?.data);
+        }
+    }
+}
+
+export const xoaNguoiDung = (id) =>{
+    return async dispatch =>{
+        try{
+            if(window.confirm("Bạn có muốn xóa không!")){
+                let result = await http.delete(`/api/users/${id}`)
+                dispatch(getArrUserAPI())
+            }
         }  
         catch(error){
             console.log(error.response?.data);

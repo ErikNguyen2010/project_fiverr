@@ -1,6 +1,17 @@
 import React from 'react'
 import { Card } from 'antd';
-export default function PersonalInfo() {
+import { memo } from 'react';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { userInfoAPI } from '../../redux/reducer/userReducer';
+function PersonalInfo(props) {
+    const dispatch = useDispatch()
+    console.log(props.match);
+    useEffect(() =>{
+        // let {id} = props.match.params
+        // const action = userInfoAPI(id)
+        // dispatch(action)
+    },[])
   return (
     <section className='personal__info'>
         <Card className='mt-5'
@@ -249,3 +260,4 @@ export default function PersonalInfo() {
     </section>
   )
 }
+export default memo(PersonalInfo)
