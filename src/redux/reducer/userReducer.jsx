@@ -153,3 +153,18 @@ export const xoaNguoiDung = (id) =>{
         }
     }
 }
+
+export const editNguoiDung = (id,values) =>{
+    return async dispatch =>{
+        try{
+            let result = await http.put(`/api/users/${id}`,values)
+            alert("Cập nhật người dùng thành công!")
+            history.push("/admin/user")
+            
+        }  
+        catch(error){
+            console.log(error.response?.data);
+        }
+    }
+}
+

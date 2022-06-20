@@ -69,7 +69,7 @@ const { Search } = Input;
       dataIndex: 'email',
       render: (text,user) =>{
         return <Fragment>
-          <NavLink style={{fontSize: "20px", fontWeight:"bold"}} to={`/admin/users/edit/${user.taiKhoan}`}>
+          <NavLink style={{fontSize: "20px", fontWeight:"bold"}} to={`/admin/user/edituser/${user._id}`}>
             <i className="fa-solid fa-marker"></i>
           </NavLink>
           <a onClick={() =>{
@@ -83,6 +83,11 @@ const { Search } = Input;
       width: "calc(100% / 7)",
     },
   ];
+  const arrUserFilter =
+  arrUser.filter(
+    (job) =>
+      job.avatar !== null && job.name && job.email && job.birthday && job.phone && job.name
+  );
   const data = arrUser;
   const onSearch = (value) => {
     
@@ -105,7 +110,7 @@ const { Search } = Input;
       size="large"
       onSearch={onSearch}
     />
-        <Table columns={columns} dataSource={data} onChange={onChange} rowKey={"email"} />
+        <Table columns={columns} dataSource={data} onChange={onChange} rowKey={"_id"} />
     </section>
   )
 }

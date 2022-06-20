@@ -23,6 +23,7 @@ import AddCategory from './pages/Admin/Category/AddCategory';
 import Gig from './pages/Admin/Gig/Gig';
 import EditGig from './pages/Admin/Gig/EditGig';
 import AddGig from './pages/Admin/Gig/AddGig';
+import EditImg from './pages/Admin/Gig/EditImg';
 
 
 export const history = createBrowserHistory();
@@ -38,7 +39,7 @@ function App() {
 
         <AdminTemplate path="/admin/user" exact component={Users} />
         <AdminTemplate path="/admin/user/adduser" exact component={AddUser} />
-        <AdminTemplate path="/admin/user/edituser/:taikhoan" exact component={EditUser} />
+        <AdminTemplate path="/admin/user/edituser/:id" exact component={EditUser} />
 
         <AdminTemplate path="/admin/category" exact component={Category} />
         <AdminTemplate path="/admin/category/editcategory" exact component={EditCategory} />
@@ -46,8 +47,9 @@ function App() {
 
 
         <AdminTemplate path="/admin/gig" exact component={Gig} />
-        <AdminTemplate path="/admin/gig/editgig" exact component={EditGig} />
+        <AdminTemplate path="/admin/gig/editgig/:id" exact component={EditGig} />
         <AdminTemplate path="/admin/gig/addgig" exact component={AddGig} />
+        <AdminTemplate path="/admin/gig/editimg/:id" exact component={EditImg} />
 
 
 
