@@ -11,8 +11,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editNguoiDung, userInfoAPI } from '../../../redux/reducer/userReducer';
 import moment from 'moment';
 import { values } from 'lodash';
+import { Redirect } from 'react-router-dom';
 function EditUser(props) {
     const {userInfo} = useSelector(rootReducer => rootReducer.userReducer)
+    const {userLogin} = useSelector(rootReducer => rootReducer.userReducer)
+  
     const dispatch = useDispatch()
    useEffect(() =>{
     let {id} = props.match.params
@@ -52,6 +55,7 @@ function EditUser(props) {
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
   };
+
   console.log(formik.values);
   return (
     <section className='edituser'>

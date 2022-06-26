@@ -11,11 +11,14 @@ import {
 import 'moment/locale/zh-cn';
 import { useDispatch, useSelector } from 'react-redux';
 import { editCongViec, editWorkImage, getWorkDetail } from '../../../redux/reducer/workReducer';
+import { Redirect } from 'react-router-dom';
 
 function EditImg(props) {
     const [imgSrc, setImgSrc] = useState('')
     const [componentSize, setComponentSize] = useState('default');
     const {workDetail} = useSelector(rootReducer => rootReducer.workReducer)
+    const {userLogin} = useSelector(rootReducer => rootReducer.userReducer)
+    
     const dispatch = useDispatch()
    useEffect(() =>{
     let {id} = props.match.params
@@ -25,7 +28,7 @@ function EditImg(props) {
       enableReinitialize:true,
       initialValues:{
         _id: workDetail?._id,
-        image: null,
+        image: workDetail?.image,
       },
       onSubmit:(values) =>{
         // let formData = new FormData()
@@ -38,26 +41,44 @@ function EditImg(props) {
         //       }
         //     }
         // }
-        const action = editWorkImage(formik.values._id, values)
+        const action = editWorkImage(formik.values._id, values.image)
         dispatch(action)
       
       }
     })
-    const handleChangeFile = async (e) =>{
-        let file = e.target.files[0]
-        if(file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg" || file.type === "image/git"){
-          await formik.setFieldValue('image',file)
-            let reader = new FileReader()
-            reader.readAsDataURL(file);
-            reader.onload = (e) =>{
-                setImgSrc(e.target.result)
-
-            }
-        }
-    }
+    const handleChangeFile = (e) => {
+      // Lấy file từ e ra ([0] là chỉ lấy file đầu tiên)
+      let file = e.target.files[0];
+      // Set định dạng ảnh đầu vào
+      if (
+        file.type === "image/jpeg" ||
+        file.type === "image/jpg" ||
+        file.type === "image/png"
+      ) {
+        // Tạo đối tượng để đọc file
+        // FileReader() cú pháp của JS
+        let reader = new FileReader();
+        // Đọc file
+        reader.readAsDataURL(file);
+        // Đọc file và trả ra kết quả ở dạng base64// e.target.result là kết quả trả về sau khi đọc file
+        reader.onload = (e) => {
+          // console.log("e.target.result", e.target.result);
+          setImgSrc(e.target.result);
+        };
+        // Đem dữ liệu file vào formik
+        formik.setFieldValue("image", file);
+  
+        // Set validation
+        // formik.setErrors()
+      }
+    };
     const onFormLayoutChange = ({ size }) => {
         setComponentSize(size);
       };
+      if(userLogin.role != "ADMIN"){
+        alert("Bạn không có quyền truy cập vào trang!")
+        return <Redirect to="/"/>
+        }
   return (
     
     <section className='editimg'>

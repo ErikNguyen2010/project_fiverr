@@ -14,9 +14,12 @@ import moment from 'moment'
 import { themNguoiDung } from '../../../redux/reducer/userReducer';
 import { useFormik } from 'formik';
 import { addNewWork } from '../../../redux/reducer/workReducer';
+import { Redirect } from 'react-router-dom';
  function AddGig(props) {
   const [imgSrc, setImgSrc] = useState("");
   const [componentSize, setComponentSize] = useState('default');
+  const {userLogin} = useSelector(rootReducer => rootReducer.userReducer)
+  
     const dispatch = useDispatch()
     const formik = useFormik({
       enableReinitialize: true,
@@ -56,6 +59,10 @@ import { addNewWork } from '../../../redux/reducer/workReducer';
     const onFormLayoutChange = ({ size }) => {
       setComponentSize(size);
     };
+    if(userLogin.role != "ADMIN"){
+      alert("Bạn không có quyền truy cập vào trang!")
+      return <Redirect to="/"/>
+      }
   return (
     <section className='adduser'>
         <h1 className='text-center mb-5' style={{fontSize: "30px", fontWeight:"bold", color:"black"}}>Thêm Công Việc</h1>

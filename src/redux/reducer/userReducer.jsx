@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { history } from '../../App';
 import { TOKEN, DOMAIN, http, USER_LOGIN } from '../../util/setting';
+import { getWorkDetail } from './workReducer';
 
 // Kiểm tra trong localStorage đã có thông tin đăng nhập hay chưa, nếu có rồi thì không cần đăng nhập lại
 let user = {};
@@ -90,6 +91,7 @@ export const userInfoAPI = (userID) =>{
             let result = await http.get(`/api/users/${userID}`)
             const action = infoAPI(result.data)
             dispatch(action)
+
         }  
         catch(error){
             console.log(error.response?.data);

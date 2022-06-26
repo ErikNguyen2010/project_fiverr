@@ -10,8 +10,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import moment from 'moment'
 import { themNguoiDung } from '../../../redux/reducer/userReducer';
+import { Redirect } from 'react-router-dom';
  function AddUser(props) {
-    
+  const {userLogin} = useSelector(rootReducer => rootReducer.userReducer)
+   
     const dispatch = useDispatch()
     const addNewUserRef = useRef({
         email: '',
@@ -52,6 +54,10 @@ import { themNguoiDung } from '../../../redux/reducer/userReducer';
     const onFormLayoutChange = ({ size }) => {
       setComponentSize(size);
     };
+    if(userLogin.role != "ADMIN"){
+      alert("Bạn không có quyền truy cập vào trang!")
+      return <Redirect to="/"/>
+      }
   return (
     <section className='adduser'>
         <h1 className='text-center mb-5' style={{fontSize: "30px", fontWeight:"bold", color:"black"}}>Thêm Người Dùng</h1>

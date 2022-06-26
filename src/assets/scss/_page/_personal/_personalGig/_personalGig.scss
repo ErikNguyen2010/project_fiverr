@@ -54,28 +54,17 @@
 
 .personal__gig{
     .personalgig__job{
-        .container{
-            .row{
-                align-items: center;
-                .col-3{
-                    .content{
-                        .personal__img{
-                            background-image: url("../../../../image/image1.png");
-                            background-repeat: no-repeat;
-                            background-position: center;
-                            background-size: cover;
-                            padding-top: 100%;
-                        }
-                        i{
-
-                        }
-                        span{
-
-                        }
+        display: flex;
+        justify-content: space-between;
+                    .personal__img{
+                        background-image: url("../../../../image/image1.png");
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        background-size: cover;
+                        width: 13vh;
+                        height: 10vw;
                     }
-                }
-                .col-9{
-                    .content{
+                    .personal_content{
                         width: 200px;
                         h1{
                             @include text($c-text, $fs-2xl, $fw-semibold);
@@ -83,45 +72,40 @@
                         p{
                             @include text($c-text, $fs-base, $fw-regular);
                         }
-                    }
-                }
-                .col-6{
-                    .content{
                         div{
                             margin-left: 35px;
                         }
                         i{
-
+                            
                         }
                         span{
                             @include text($c-text, $fs-base, $fw-regular);
                         }
-                        .personal__btn{
-                            margin-left: 8rem;
-                            .btn-detail{
-                                background-color: $c-primary;
-                                @include text($c-white, $fs-base, $fw-bold);
-                                &:hover{
-                                    background-color: #19a463;
-                                }
+                    }
+                    .personal__btn{
+                        margin-left: 8rem;
+                        display: flex;
+                        align-items: flex-end;
+                        .btn-detail{
+                            background-color: $c-primary;
+                            @include text($c-white, $fs-base, $fw-bold);
+                            &:hover{
+                                background-color: #19a463;
                             }
-                            .btn-edit{
-                                background-color: $c-text;
-                                @include text($c-white, $fs-base, $fw-bold);
-                                border: none;
-                                &:hover{
-                                    opacity: 0.8;
-                                }
-                                margin: 0 20px;
+                        }
+                        .btn-edit{
+                            background-color: $c-text;
+                            @include text($c-white, $fs-base, $fw-bold);
+                            border: none;
+                            &:hover{
+                                opacity: 0.8;
                             }
-                            .btn-delete{
-                                @include text($c-white, $fs-base, $fw-bold);
-                               
-                            }
+                            margin: 0 20px;
+                        }
+                        .btn-delete{
+                            @include text($c-white, $fs-base, $fw-bold);
+                            
                         }
                     }
                 }
             }
-        }    
-    }
-}

@@ -11,10 +11,13 @@ import {
 import 'moment/locale/zh-cn';
 import { useDispatch, useSelector } from 'react-redux';
 import { editCongViec, getWorkDetail } from '../../../redux/reducer/workReducer';
+import { Redirect } from 'react-router-dom';
 function EditGig(props) {
     const [imgSrc, setImgSrc] = useState('')
     const [componentSize, setComponentSize] = useState('default');
     const {workDetail} = useSelector(rootReducer => rootReducer.workReducer)
+    const {userLogin} = useSelector(rootReducer => rootReducer.userReducer)
+     
     const dispatch = useDispatch()
    useEffect(() =>{
     let {id} = props.match.params
@@ -61,6 +64,10 @@ function EditGig(props) {
         }
     }
 }
+if(userLogin.role != "ADMIN"){
+  alert("Bạn không có quyền truy cập vào trang!")
+  return <Redirect to="/"/>
+  }
   return (
     <section className='edituser'>
         <h1 className='text-center mb-5' style={{fontSize: "30px", fontWeight:"bold", color:"black"}}>Edit Công Việc</h1>

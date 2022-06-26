@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useState} from "react"
 import { useSelector } from "react-redux"
 import { NavLink, Redirect, Route } from "react-router-dom"
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Dropdown, Space } from 'antd';
 import {
     UserOutlined,
     WindowsFilled,
@@ -13,15 +13,16 @@ import {
     RobotOutlined,
     CarOutlined,
     SubnodeOutlined,
+    RedditOutlined,
   } from '@ant-design/icons';
+  import { DownOutlined, SmileOutlined } from '@ant-design/icons';
+
 import { TOKEN, USER_LOGIN } from "../../util/setting";
 import { history } from "../../App";
   const { Header, Content, Footer, Sider } = Layout;
 
 export const  AdminTemplate = (props) =>{
-
     const {userLogin} = useSelector(rootReducer => rootReducer.userReducer)
-
     const [collapsed, setCollapsed] = useState(false);
       useEffect(() => {
         window.scrollTo(0, 0);
@@ -31,11 +32,37 @@ export const  AdminTemplate = (props) =>{
         alert("Bạn không có quyền truy cập vào trang!")
         return <Redirect to="/"/>
     }
-    if(userLogin.role != "ADMIN"){
-    alert("Bạn không có quyền truy cập vào trang!")
-    return <Redirect to="/"/>
-    }
-
+  
+    const menu = (
+      <Menu
+        items={[
+          {
+            key: '1',
+            label: (
+              <NavLink  style={{ display:"block" ,padding:"10px 0" ,color: "#62646a", fontSize: "18px", fontWeight: "700"}} to={`/personal/${userLogin._id}`} >
+              Personal Page
+              </NavLink>
+            ),
+          },
+          {
+            key: '2',
+            label: (
+              <NavLink  style={{ display:"block" ,padding:"10px 0" ,color: "#62646a", fontSize: "18px", fontWeight: "700"}} to={`/admin/user`} >
+              Admin Page
+              </NavLink>
+            ),
+          },
+          {
+            key: '3',
+            label: (
+              <NavLink  style={{ display:"block" ,padding:"10px 0" ,color: "#62646a", fontSize: "18px", fontWeight: "700"}} to={`/admin/user/infouser/${userLogin._id}`} >
+              Personal Detail
+              </NavLink>
+            ),
+          },
+        ]}
+      />
+    );
 
     let Component = props.component
 
@@ -59,6 +86,9 @@ export const  AdminTemplate = (props) =>{
 
 
           <Menu.SubMenu key={23} title="Users" icon={<RobotOutlined />}>
+            <Menu.Item key="16" icon={<RedditOutlined />}>
+                <NavLink to={`/admin/user/infouser/${userLogin._id}`}>User Info</NavLink>
+            </Menu.Item>
             <Menu.Item key="12" icon={<UserOutlined/>}>
                 <NavLink to="/admin/user">Users</NavLink>
             </Menu.Item>
@@ -66,16 +96,6 @@ export const  AdminTemplate = (props) =>{
                 <NavLink to="/admin/user/adduser">Add Users</NavLink>
             </Menu.Item>
           </Menu.SubMenu>
-
-
-            <Menu.SubMenu key={22} title="Films" icon={<WindowsFilled />}>
-              <Menu.Item key="41" icon={<FileFilled />}>
-                  <NavLink to="/admin/category">Categories</NavLink>
-              </Menu.Item>
-              <Menu.Item key="42" icon={<FileAddFilled />}>
-                  <NavLink to="/admin/category/addcategory">Add New</NavLink>
-              </Menu.Item>
-            </Menu.SubMenu>
 
 
 
@@ -102,23 +122,33 @@ export const  AdminTemplate = (props) =>{
                 }}>
 
                 <Fragment>
-                          <NavLink className="btn__login mr-5" style={{textTransform: "uppercase"}} to={`/profile/${userLogin.taiKhoan}`}>
-                              <i className="fa-solid fa-user-astronaut"></i>
-                                hi {userLogin.name}
-                              </NavLink>
-                              <NavLink className="btn__logout mr-5" onClick={() =>{
-                                  if(window.confirm("Bạn có muốn đăng xuất không?")){
-                                    localStorage.removeItem(USER_LOGIN)
-                                    localStorage.removeItem(TOKEN)
-                                    history.push('/home')
-                                    window.location.reload()
-                                  }
-                                }} to="#">
-                                  Đăng Xuất
-                              </NavLink>
-                              <NavLink className="btn__login mr-5"  to="/">
-                              <i className="fa-solid fa-house"></i> Về trang chủ
-                              </NavLink>
+                <Dropdown overlay={menu} trigger={['click']}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space className='btn__login btn'>
+                      <i className="fa-solid fa-user-ninja"></i> hi {userLogin.email}
+                        <DownOutlined />
+                      </Space>
+                    </a>
+                </Dropdown>
+                <div>
+                <NavLink to="/" className='ml-2 btn__logout btn btn-danger' onClick={() =>{
+                  if(window.confirm("Bạn có muốn đăng xuất không?")){
+                    localStorage.removeItem(USER_LOGIN)
+                    localStorage.removeItem(TOKEN)
+                  }
+                  propsRoute.history.push('/')
+                  window.location.reload()
+                }} type="primary">
+                Log Out
+                
+                </NavLink>
+
+                </div>
+                <div>
+                    <NavLink className="btn__login mr-5 ml-2 btn"  to="/">
+                    <i className="fa-solid fa-house"></i> Home Page
+                    </NavLink>
+                </div>
                   </Fragment> 
                 
                 </Header>

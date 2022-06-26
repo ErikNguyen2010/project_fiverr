@@ -16,14 +16,12 @@ import Users from './pages/Admin/Users/Users'
 import AddUser from './pages/Admin/Users/AddUser'
 import EditUser from './pages/Admin/Users/EditUser'
 
-import Category from './pages/Admin/Category/Category';
-import EditCategory from './pages/Admin/Category/EditCategory';
-import AddCategory from './pages/Admin/Category/AddCategory';
 
 import Gig from './pages/Admin/Gig/Gig';
 import EditGig from './pages/Admin/Gig/EditGig';
 import AddGig from './pages/Admin/Gig/AddGig';
 import EditImg from './pages/Admin/Gig/EditImg';
+import UserInfo from './pages/Admin/Users/UserInfo';
 
 
 export const history = createBrowserHistory();
@@ -38,12 +36,10 @@ function App() {
         <HomeTemplate exact path="/personal/:id" component={Personal}/>
 
         <AdminTemplate path="/admin/user" exact component={Users} />
+        <AdminTemplate path="/admin/user/infouser/:id" exact component={UserInfo} />
         <AdminTemplate path="/admin/user/adduser" exact component={AddUser} />
         <AdminTemplate path="/admin/user/edituser/:id" exact component={EditUser} />
 
-        <AdminTemplate path="/admin/category" exact component={Category} />
-        <AdminTemplate path="/admin/category/editcategory" exact component={EditCategory} />
-        <AdminTemplate path="/admin/category/addcategory" exact component={AddCategory} />
 
 
         <AdminTemplate path="/admin/gig" exact component={Gig} />

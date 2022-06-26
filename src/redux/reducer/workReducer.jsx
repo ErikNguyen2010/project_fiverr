@@ -29,7 +29,6 @@ export const getWork = () =>{
     return async dispatch =>{
         try{
             let result = await http.get(`/api/jobs/by-user`)
-            console.log(result.data);
         }
         catch(err){
             console.log(err.response?.data);
@@ -85,10 +84,11 @@ export const xoaCongViec = (id) =>{
 }
 
 export const getWorkDetail = (id) =>{
+    console.log(id)
     return async dispatch =>{
         try{         
-            let result = await http.get(`/api/jobs/${id}`)
-            dispatch(getWorkDetailAPI(result.data))
+            // let result = await http.get(`/api/jobs/${id}`)
+            // dispatch(getWorkDetailAPI(result.data))
     
         }
         catch(err){
@@ -116,6 +116,7 @@ export const editWorkImage = (id ,values) =>{
    return async dispatch =>{
         try{
             let result = await http.post(`/api/jobs/upload-image/${id}` , values)
+            console.log("abvc");
             console.log(result.data);
         }
         catch(err){

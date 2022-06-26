@@ -2,12 +2,42 @@ import React, { Fragment, memo } from 'react'
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import _ from "lodash"
+import { DownOutlined, SmileOutlined } from '@ant-design/icons';
 import { history } from '../../App';
 import { TOKEN, USER_LOGIN } from '../../util/setting';
+import { Dropdown, Menu, Space } from 'antd';
  function HeaderHome(props) {
   const {userLogin} = useSelector(rootReducer => rootReducer.userReducer)
-  console.log(userLogin);
-
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: '1',
+          label: (
+            <NavLink  style={{ display:"block" ,padding:"10px 0" ,color: "#62646a", fontSize: "18px", fontWeight: "700"}} to={`/personal/${userLogin._id}`} >
+            Personal Page
+            </NavLink>
+          ),
+        },
+        {
+          key: '2',
+          label: (
+            <NavLink  style={{ display:"block" ,padding:"10px 0" ,color: "#62646a", fontSize: "18px", fontWeight: "700"}} to={`/admin/user`} >
+            Admin Page
+            </NavLink>
+          ),
+        },
+        {
+          key: '3',
+          label: (
+            <NavLink  style={{ display:"block" ,padding:"10px 0" ,color: "#62646a", fontSize: "18px", fontWeight: "700"}} to={`/admin/user/infouser/${userLogin._id}`} >
+            Personal Detail
+            </NavLink>
+          ),
+        },
+      ]}
+    />
+  );
   const renderLogin = () =>{
     if(_.isEmpty(userLogin)){
       return <Fragment >
@@ -22,22 +52,28 @@ import { TOKEN, USER_LOGIN } from '../../util/setting';
       </Fragment>
     }
     return <Fragment>
+   
        <div className='d-flex justify-content-end'>
-        <NavLink className='btn__login btn ' to={`/personal/${userLogin._id}`} >
-        <i className="fa-solid fa-user-ninja"></i> hi {userLogin.email}
-        </NavLink>
-        <NavLink className='btn__login btn ' to={`/admin/user`} >
-        <i className="fa-solid fa-user-ninja"></i> hi {userLogin.email}
-        </NavLink>
+       <Dropdown overlay={menu} trigger={['click']}>
+    <a onClick={(e) => e.preventDefault()}>
+      <Space className='btn__login btn'>
+      <i className="fa-solid fa-user-ninja"></i> hi {userLogin.email}
+        <DownOutlined />
+      </Space>
+    </a>
+  </Dropdown>
+      
+
         <NavLink to="/" className='ml-2 btn__logout btn btn-danger' onClick={() =>{
           if(window.confirm("Bạn có muốn đăng xuất không?")){
             // xóa mọi dữ liệu trong localstorage
             localStorage.removeItem(USER_LOGIN)
             localStorage.removeItem(TOKEN)
+            
           }
-          //chuyen hướng về home và reload lại trang
           props.history.push('/home')
           window.location.reload()
+          //chuyen hướng về home và reload lại trang
         }} type="primary">
         Log Out
         
