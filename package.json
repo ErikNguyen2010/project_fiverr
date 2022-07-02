@@ -1,5 +1,5 @@
 {
-  "name": "reactbc23_v18",
+  "name": "project-fiverr",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,6 +20,7 @@
     "redux": "^4.2.0",
     "sass-loader": "^13.0.0",
     "slick-carousel": "^1.8.1",
+    "redux-thunk": "^2.4.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
