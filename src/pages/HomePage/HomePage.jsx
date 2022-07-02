@@ -80,8 +80,12 @@ export default function HomePage(props) {
             <a href="#business">Fiverr Business</a>
             <a href="#explore">Explore</a>
             <a href="#seller">Become a Seller</a>
-            <button className="signin">Sign in </button>
-            <button className="join">Join</button>
+            <Link to={"/login"} className="signin">
+              Sign in
+            </Link>
+            <Link to={"/register"} className="join">
+              Join
+            </Link>
           </nav>
         </div>
         <div className="header-main-responsive-1">
