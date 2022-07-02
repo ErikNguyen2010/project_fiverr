@@ -1,19 +1,21 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { createBrowserHistory } from 'history'
+import {Route , Router, Switch} from 'react-router-dom'
+import {createBrowserHistory} from 'history'
+import React, { Fragment } from 'react';
 import HomePage from './pages/HomePage/HomePage';
-
-export const history = createBrowserHistory();
+import routes from './routes/routes';
+export const history = createBrowserHistory ();
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/' component={HomePage}/>
-      </Switch>
-      Rô
-    </Router>
+      <Router history={history}>
+        <Switch>
+          {routes.map((route, index) => {
+            return <Route key={index} exact={route.exact} path={route.path} component={route.component}/>
+          })}
+        </Switch>
+      </Router>
   );
 }
 

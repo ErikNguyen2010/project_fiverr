@@ -1,15 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { store } from './redux/configStore'
-import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
-import './style/style.scss';
+import ReactDOM from 'react-dom/client';
+import reportWebVitals from './reportWebVitals';
+
+import App from './App';
+
+import {store} from './redux/configStore';
+
+import './index.css';
+import './scss/index.scss';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <Provider store={store}>
     <App />
+  </Provider>
 );
+
 reportWebVitals();
