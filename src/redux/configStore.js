@@ -5,6 +5,10 @@ import subTypeJob from './Reducers/subTypeJob';
 import detailJob from './Reducers/detailJob';
 import subJobs from './Reducers/subJobs';
 import authStore from './Reducers/authStore';
+import  loadingReducer  from './reducer/loadingReducer'
+import userReducer from './reducer/userReducer'
+import workReducer from './reducer/workReducer'
+
 
 export const store = configureStore ({
     reducer: {
@@ -14,6 +18,8 @@ export const store = configureStore ({
         subTypeJob : subTypeJob,
         detailJob : detailJob,
         subJobs : subJobs,
-        auth: authStore,
+        auth: userReducer,
+        loadingReducer: loadingReducer,
+        workReducer,
     }
 })
