@@ -7,6 +7,8 @@ import {
     Select,
     Modal,
     Card,
+    Row,
+    Col,
   } from 'antd';
 import { useState, useRef } from 'react';
 import { userRegisterAPI } from '../../redux/reducer/userReducer'
@@ -94,15 +96,14 @@ if(localStorage.getItem(USER_LOGIN)){
     return <Redirect to="/home"/>
   } 
   return (
-    <section className='register' style={{backgroundColor: "#f7f7f7"}}>
-         <div className='container'>
-        <div className="row">
-          <div className="col-12">
+    <section className='register' style={{padding:"50px 0" ,backgroundColor: "#f7f7f7"}}>
+        <Row justify='center'>
+          <Col xs={24}  sm={12} lg={7} md={12}>
             <div className="content">
             <div className="site-card-border-less-wrapper">
               <Card
               bordered={true}
-              style={{width: "40%", margin: "0 auto", boxShadow: "0 0 8px #95979d"}}>
+              style={{ margin: "0 auto", boxShadow: "0 0 8px #95979d"}}>
             <h1 className='register__header'>Join Fiverr</h1>
                     <div className='register__apps'>
                       <a href="https://www.facebook.com/" className='btn-facebook btn btn-primary'>
@@ -258,10 +259,9 @@ if(localStorage.getItem(USER_LOGIN)){
             </Card>
             </div>
             </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
       
-      </div>
     </section>
   )
 }

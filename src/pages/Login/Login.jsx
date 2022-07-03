@@ -1,6 +1,6 @@
 import React, { memo, useRef } from 'react'
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Card, Checkbox, Form, Input, } from 'antd';
+import { Button, Card, Checkbox, Col, Form, Input, Row, } from 'antd';
 import {useDispatch} from 'react-redux'
 import { userLoginAPI } from '../../redux/reducer/userReducer';
 import { NavLink, Redirect } from 'react-router-dom';
@@ -30,15 +30,14 @@ import { USER_LOGIN } from '../../util/setting';
     return <Redirect to="/home"/>
   }
   return (
-    <section className="login" style={{backgroundColor: "#f7f7f7"}}>
-    <div className='container'>
-      <div className="row">
-        <div className="col-12">
+    <section  className="login" style={{padding:"50px 0" ,backgroundColor: "#f7f7f7"}}>
+      <Row justify='center'>
+        <Col xs={24}  sm={12} lg={7} md={12} >
           <div className="content">
           <div className="site-card-border-less-wrapper">
               <Card
               bordered={true}
-              style={{width: "40%", margin: "0 auto", boxShadow: "0 0 8px #95979d"}}>
+              style={{ margin: "0 auto", boxShadow: "0 0 8px #95979d"}}>
               <h1 className='login__header mb-2'>Sign In to Fiverr</h1>
                       <div className='login__apps'>
                       <a href="https://www.facebook.com/" className='btn-facebook btn btn-primary'>
@@ -101,7 +100,7 @@ import { USER_LOGIN } from '../../util/setting';
                       </Form.Item>
 
                       <a className="login-form-forgot" href="">
-                          Forgot password
+                          Forgot password?
                       </a>
                       </Form.Item>
 
@@ -120,9 +119,9 @@ import { USER_LOGIN } from '../../util/setting';
               </Card>
           </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </Col>
+      
+      </Row>
     
       </section>
   )

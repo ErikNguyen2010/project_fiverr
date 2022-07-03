@@ -13,9 +13,9 @@ export const  HomeTemplate = (props) =>{
       
     return <Route exact path={props.path} render={(propsRoute) =>{
         return <Fragment>
-            <HeaderHome {...propsRoute}/>
-            <Component {...propsRoute}/>
-            <footer className="text=white bg-dark display-4">footer</footer>
+                        <HeaderHome {...propsRoute}/>
+                        <Component {...propsRoute}/>
+                        <footer className="text=white bg-dark display-4">footer</footer>
         </Fragment>
     }}/>
 }
