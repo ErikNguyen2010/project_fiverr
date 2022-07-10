@@ -7,6 +7,7 @@ import Header from "../../templates/Header/Header";
 import Footer from "../../templates/Footer/Footer";
 import Comment from "../../pages/DetailJobsPage/Comment";
 import "../../scss/_DetailJobsPage.scss";
+import { http } from "../../util/setting";
 
 export default function DetailJobsPage(props) {
   const dispatch = useDispatch();
@@ -16,6 +17,15 @@ export default function DetailJobsPage(props) {
 
   const { detailJobs } = useSelector((reducer) => reducer.detailJob);
   console.log("detailJobs", detailJobs);
+
+  const hiding = async () => {
+    try {
+      const result = await http.patch(`/api/jobs/booking/${iddetail}`);
+      alert("Succeed for hiring !");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     dispatch(getDetailJob(iddetail));
@@ -50,13 +60,15 @@ export default function DetailJobsPage(props) {
           <div className="content-right">
             <div className="content-right-detail">
               {!userLogin?._id && <div className="overlay" />}
-              <h4>Service Package</h4>
+              <h3>Service Package</h3>
               <div className="price-items">
                 <p className="text">Package Price:</p>
                 <span className="price">US${detailJobs.price}</span>
               </div>
               <div className="button">
-                <button type="button">Comfirm & Pay</button>
+                <button onClick={hiding} type="button">
+                  Comfirm & Pay
+                </button>
               </div>
             </div>
           </div>

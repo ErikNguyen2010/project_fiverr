@@ -19,6 +19,12 @@ export default function HomePage(props) {
   const { arrTypeJob } = useSelector((reducer) => reducer.jobPage);
   const dispatch = useDispatch();
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userLogin");
+    window.location.replace("/");
+  };
+
   const [visible, setVisible] = useState(false);
 
   const { userLogin } = useSelector((state) => state.auth);
@@ -94,7 +100,7 @@ export default function HomePage(props) {
               </Link>
             )}
             {userLogin?._id && (
-              <button type="button" className="logout">
+              <button onClick={logout} type="button" className="logout">
                 Log Out
               </button>
             )}
@@ -115,7 +121,9 @@ export default function HomePage(props) {
                     <span>Join Fiverr</span>
                   </Link>
                 ) : (
-                  <button>Log Out</button>
+                  <button onClick={logout} type="button">
+                    Log Out
+                  </button>
                 )
               }
               placement="left"
@@ -165,7 +173,7 @@ export default function HomePage(props) {
           )}
           {userLogin?._id && (
             <span>
-              <button type="button" className="logout">
+              <button type="button" onClick={logout} className="logout">
                 Log Out
               </button>
             </span>
@@ -186,7 +194,9 @@ export default function HomePage(props) {
                     <span>Join Fiverr</span>
                   </Link>
                 ) : (
-                  <button>Log Out</button>
+                  <button onClick={logout} type="button">
+                    Log Out
+                  </button>
                 )
               }
               placement="left"
@@ -242,7 +252,7 @@ export default function HomePage(props) {
             )}
             {userLogin?._id && (
               <span>
-                <button type="button" className="logout">
+                <button type="button" onClick={logout} className="logout">
                   Log Out
                 </button>
               </span>
