@@ -30,9 +30,9 @@ export default function Header(props) {
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userLogin');
-    window.location.replace('/');
+    localStorage.removeItem("token");
+    localStorage.removeItem("userLogin");
+    window.location.replace("/");
   };
 
   const enterSearch = (event) => {
@@ -180,7 +180,9 @@ export default function Header(props) {
                       <span>Join Fiverr</span>
                     </Link>
                   ) : (
-                    <button>Log Out</button>
+                    <button onClick={logout} type="button">
+                      Log Out
+                    </button>
                   )
                 }
                 placement="left"
@@ -230,7 +232,7 @@ export default function Header(props) {
             )}
             {userLogin?._id && (
               <span>
-                <button type="button" className="logout">
+                <button onClick={logout} type="button" className="logout">
                   Log Out
                 </button>
               </span>
@@ -262,7 +264,9 @@ export default function Header(props) {
                     <span>Join Fiverr</span>
                   </Link>
                 ) : (
-                  <button>Log Out</button>
+                  <button onClick={logout} type="button">
+                    Log Out
+                  </button>
                 )
               }
               placement="left"
@@ -326,7 +330,7 @@ export default function Header(props) {
             )}
             {userLogin?._id && (
               <span>
-                <button type="button" className="logout">
+                <button onClick={logout} type="button" className="logout">
                   Log Out
                 </button>
               </span>
