@@ -57,11 +57,10 @@
         display: flex;
         justify-content: space-between;
                     .personal__img{
-                        background-image: url("../../../../image/image1.png");
                         background-repeat: no-repeat;
                         background-position: center;
                         background-size: cover;
-                        width: 13vh;
+                        width: 20vh;
                         height: 10vw;
                     }
                     .personal_content{
@@ -108,4 +107,39 @@
                         }
                     }
                 }
+}
+
+
+@media  all and (max-width: 600px) {
+  .personal__gig{
+    .personalgig__job{
+        .personal__btn{
+            .btn-edit{
+                margin: inherit;
             }
+        }
+    }
+  }
+  .personal__gig .personalgig__job .personal_content h1{
+    font-size: 16px;
+  }
+  .personal__gig .personalgig__job .personal__btn{
+    margin-left: inherit;
+    flex-direction: column;
+  }
+  a.btn-detail.btn.btn-success{
+      font-size: 5px;
+        padding: 5px 5px;
+        display: block;
+    }
+  .btn-edit.btn.btn-warning{
+      font-size: 5px;
+        padding: 5px 5px;
+        display: block;
+    }
+  .btn-delete.btn.btn-danger{
+      font-size: 5px;
+        padding: 5px 5px;
+        display: block;
+    }
+}
