@@ -30,13 +30,13 @@ export default function Footer(props) {
       <div className="footer-content">
         <div className="footer-detail">
           <ul type="none">
-            <h6>Categories</h6>
+            <h4>Categories</h4>
             {renderMainJob()}
           </ul>
         </div>
         <div className="footer-detail">
           <ul type="none">
-            <h6>About</h6>
+            <h4>About</h4>
             <li>Careers</li>
             <li>Press & News</li>
             <li>Partnerships</li>
@@ -48,7 +48,7 @@ export default function Footer(props) {
         </div>
         <div className="footer-detail">
           <ul type="none">
-            <h6> Support</h6>
+            <h4> Support</h4>
             <li>Help & Support</li>
             <li>Trust & Safety</li>
             <li>Selling on Fiverr</li>
@@ -57,7 +57,7 @@ export default function Footer(props) {
         </div>
         <div className="footer-detail">
           <ul type="none">
-            <h6> Community</h6>
+            <h4> Community</h4>
             <li>Events</li>
             <li>Blog</li>
             <li>Forum</li>
@@ -74,7 +74,7 @@ export default function Footer(props) {
         </div>
         <div className="footer-detail">
           <ul type="none">
-            <h6>More From Fiverr</h6>
+            <h4>More From Fiverr</h4>
             <li>Fiverr Business</li>
             <li>Fiverr Pro</li>
             <li>Fiverr Studios</li>

@@ -12,8 +12,8 @@ export default function TypeJobsPage() {
   const { arrTypeJob } = useSelector((reducer) => reducer.jobPage);
 
   const setSubTypeJob = () => {
-    console.log('arrTypeJob', arrTypeJob)
-    console.log('mainTypeJobName', mainTypeJobName)
+    console.log("arrTypeJob", arrTypeJob);
+    console.log("mainTypeJobName", mainTypeJobName);
     const mainTypeJob = arrTypeJob.find(
       (jobPage) => jobPage.name === mainTypeJobName
     );
@@ -31,7 +31,7 @@ export default function TypeJobsPage() {
         <h2>{mainTypeJobName}</h2>
         <div className="content-items">
           <div className="content-left">
-            <h5>{mainTypeJobName}</h5>
+            <h3>{mainTypeJobName}</h3>
             {subTypeJobs.map((subJob, index) => {
               return (
                 <ul type="none">
@@ -45,13 +45,15 @@ export default function TypeJobsPage() {
           <div className="content-right">
             {subTypeJobs.map((subJob, index) => {
               return (
-                <Link to={`/${mainTypeJobName}/${subJob._id}`} key={index}>
-                  <img
-                    src={subJob.image ? subJob.image : defaultSubJob}
-                    alt="..."
-                  />
-                  <p>{subJob.name}</p>
-                </Link>
+                <div className="content-main">
+                  <Link to={`/${mainTypeJobName}/${subJob._id}`} key={index}>
+                    <img
+                      src={subJob.image ? subJob.image : defaultSubJob}
+                      alt="..."
+                    />
+                    <p>{subJob.name}</p>
+                  </Link>
+                </div>
               );
             })}
           </div>
