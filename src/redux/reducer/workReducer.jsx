@@ -6,6 +6,7 @@ const initialState = {
     bookingJob: [],
     arrWork: [],
     workDetail: {},
+    workPersonal: []
 }
 
 const workReducer = createSlice({
@@ -17,11 +18,14 @@ const workReducer = createSlice({
     },
     getWorkDetailAPI: (state,action) =>{
         state.workDetail = action.payload
+    },
+    getWorkPersonalAPI: (state,action) =>{
+        state.workPersonal = action.payload
     }
   }
 });
 
-export const {getListWork,getWorkDetailAPI} = workReducer.actions
+export const {getListWork,getWorkDetailAPI,getWorkPersonalAPI} = workReducer.actions
 
 export default workReducer.reducer
 
@@ -84,11 +88,25 @@ export const xoaCongViec = (id) =>{
 }
 
 export const getWorkDetail = (id) =>{
-    console.log(id)
     return async dispatch =>{
         try{         
-            // let result = await http.get(`/api/jobs/${id}`)
-            // dispatch(getWorkDetailAPI(result.data))
+            let result = await http.get(`/api/jobs/${id}`)
+            dispatch(getWorkDetailAPI(result.data))
+    
+        }
+        catch(err){
+            console.log(err.response?.data);
+        }
+    }
+}
+
+
+
+export const getWorkPersonal = () =>{
+    return async dispatch =>{
+        try{         
+            let result = await http.get(`/api/jobs/`)
+            dispatch(getWorkPersonalAPI(result.data))
     
         }
         catch(err){

@@ -2,7 +2,7 @@
 import './App.css';
 import {Route , Router, Switch} from 'react-router-dom'
 import {createBrowserHistory} from 'history'
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import routes from './routes/routes';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
@@ -25,6 +25,9 @@ import UserInfo from './pages/Admin/Users/UserInfo';
 
 export const history = createBrowserHistory();
 function App() {
+  useEffect(() => {
+    window.scrollTo(0,0);
+  }, [])
   return (
       <Router history={history}>
         <Switch>

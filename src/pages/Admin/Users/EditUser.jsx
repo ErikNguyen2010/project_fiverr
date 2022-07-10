@@ -56,7 +56,6 @@ function EditUser(props) {
     setComponentSize(size);
   };
 
-  console.log(formik.values);
   return (
     <section className='edituser'>
         <h1 className='text-center mb-5' style={{fontSize: "30px", fontWeight:"bold", color:"black"}}>Edit Người Dùng</h1>

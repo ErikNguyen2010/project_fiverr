@@ -12,7 +12,7 @@ export default function DetailJobsPage(props) {
   const dispatch = useDispatch();
   const { iddetail } = useParams();
 
-  const { user } = useSelector((state) => state.auth);
+  const { userLogin } = useSelector((state) => state.auth);
 
   const { detailJobs } = useSelector((reducer) => reducer.detailJob);
   console.log("detailJobs", detailJobs);
@@ -48,20 +48,21 @@ export default function DetailJobsPage(props) {
             />
           </div>
           <div className="content-right">
-            {user && (
-              <div className="content-right-detail">
-                <h4>Service Package</h4>
-                <div className="price-items">
-                  <p className="text">Package Price:</p>
-                  <span className="price">US${detailJobs.price}</span>
-                </div>
+            <div className="content-right-detail">
+              {!userLogin?._id && <div className="overlay" />}
+              <h4>Service Package</h4>
+              <div className="price-items">
+                <p className="text">Package Price:</p>
+                <span className="price">US${detailJobs.price}</span>
+              </div>
+              <div className="button">
                 <button type="button">Comfirm & Pay</button>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </section>
-      <Comment jobId={iddetail} />
+      <Comment jobId={iddetail} isLogin={!!userLogin?._id} />
       <Footer />
     </div>
   );

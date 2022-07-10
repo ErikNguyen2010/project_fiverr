@@ -1,18 +1,17 @@
 import React, { memo } from 'react'
 import PersonalInfo from '../../components/PersonalInfo/PersonalInfo'
 import PersonalGig from '../../components/PersonalGig/PersonalGig'
-import { Card } from 'antd';
+import { Card, Col, Row } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { userInfoAPI } from '../../redux/reducer/userReducer';
-import { getWork, getWorkDetail } from '../../redux/reducer/workReducer';
+import { getWork, getWorkDetail, getWorkPersonal, xoaCongViec } from '../../redux/reducer/workReducer';
 import { USER_LOGIN } from '../../util/setting';
+import { NavLink } from 'react-router-dom';
 
 function Personal(props) {
     const {userInfo} = useSelector(rootReducer => rootReducer.userReducer)
-    const {workDetail} = useSelector(state=>state.workReducer)
-
-    console.log(userInfo.bookingJob);
+    const {workPersonal} = useSelector(state=>state.workReducer)
 
     const dispatch = useDispatch()
 
@@ -22,16 +21,67 @@ function Personal(props) {
         dispatch(action)
     },[])
     useEffect(() =>{
-        // const action = getWorkDetail(userInfo.bookingJob)
-        // dispatch(action)
+        const action = getWorkPersonal()
+        dispatch(action)
     },[])
-
-
+    const renderWork = () =>{
+            const arrWork = workPersonal.filter(item => item.usersBooking === userInfo._id)
+            const arrWorkImage = arrWork.filter(item => item.image)
+            return arrWorkImage.map((item,key) =>{
+                 
+                return <Card  style={{boxShadow:"0 0 7px #d6d6d6", width: "100%"}} className='mt-3'
+                title={
+                    <div style={{position: "relative"}} className='personalgig__job'>
+                            <div style={{backgroundImage: `url(${item.image})`}} className="personal__img">
+                            </div>
+                            <div className="ml-2 personal_content">
+                                <h1>{item.name.length > 50 ? item.name.substr(0,40) + "..." : item.name}</h1>
+                                <span>{item.rating}</span>
+                                <i style={{color: "#ffc107"}} className='ml-1 fa fa-star'></i>
+                                <br/>
+                                <span style={{color: "#19a463", fontSize: "16px", fontWeight: "600"}}>
+                                    {item.proServices ? "Pro Services" : ""}
+                                </span>
+                                <span style={{color: "#19a463", fontSize: "16px", fontWeight: "600"}} className='d-block'>
+                                    {item.localSellers ? "Local Sellers" : ""}
+                                </span>
+                                <span style={{color: "#19a463", fontSize: "16px", fontWeight: "600"}}>
+                                    {item.onlineSellers ? "Online Sellers" : ""}
+                                </span>
+                                <span style={{color: "#19a463", fontSize: "16px", fontWeight: "600"}}>
+                                    {item.deliveryTime ? "Delivery Time" : ""}
+                                </span>
+                            </div>
+                            <div className='personal__btn'>
+                                <a href="" className="btn-detail btn btn-success">
+                                View detail
+                                </a>                    
+                                <NavLink to={`/admin/gig/editgig/${item._id}`} className="btn-edit btn btn-warning">
+                                Edit
+                                </NavLink>                    
+                                <a href="" onClick={() =>{
+                                    dispatch(xoaCongViec(item._id))
+                                }} className="btn-delete btn btn-danger">
+                                X
+                                </a>           
+                            </div>
+                    </div>
+                }
+                >
+            </Card>
+            })
+    }       
   return (
     <section className='personal'>
         <div className="container">
-            <div className="row">
-                <div className="col-4">
+
+            <Row gutter={{
+        xs: 8,
+        sm: 16,
+        md: 24,
+        lg: 32,
+      }}>
+                <Col  className="gutter-row" xs={24} sm={24} md={24} lg={7}>
                 <section className='personal__info'>
                     <Card style={{boxShadow:"0 0 7px #d6d6d6", width: "100%"}} className='mt-5'
                         title={
@@ -108,6 +158,7 @@ function Personal(props) {
                         >
                         
                     </Card>
+                 
                     <Card className='mt-4 personalinfo__desc'
                 
                 style={{boxShadow:"0 0 7px #d6d6d6", width: "100%"}}
@@ -265,8 +316,8 @@ function Personal(props) {
                         
                     </Card>
                 </section>
-                </div>
-                <div className="col-8">
+                </Col>
+                <Col  className="gutter-row" xs={24} sm={24} md={24}  lg={17}>
                     <section className='personal__gig'>
                         <Card style={{boxShadow:"0 0 7px #d6d6d6", width: "100%"}} className='mt-5'
                                 title={
@@ -289,7 +340,7 @@ function Personal(props) {
                                 >
                                 
                             </Card>
-                        <Card  style={{boxShadow:"0 0 7px #d6d6d6", width: "100%"}} className='mt-3'
+                            <Card  style={{boxShadow:"0 0 7px #d6d6d6", width: "100%"}} className='mt-3'
                                 title={
                                     <div className='personalgig__create'>
                                         <div>
@@ -309,37 +360,10 @@ function Personal(props) {
                                 >
                                 
                             </Card>
-                        <Card style={{boxShadow:"0 0 7px #d6d6d6", width: "100%"}} className='mt-3'
-                                title={
-                                    <div style={{position: "relative"}} className='personalgig__job'>
-                                            <div className="personal__img">
-                                            </div>
-                                            <div className="personal_content">
-                                                <h1>Lập trình front end với Reactjs</h1>
-                                                <i className='fa fa-star'></i>
-                                                <i className='fa fa-star'></i>
-                                                <i className='fa fa-star'></i>
-                                                <i className='fa fa-star'></i>
-                                                <span>4.3</span>
-                                            </div>
-                                            <div className='personal__btn'>
-                                                <a href="" className="btn-detail btn btn-success">
-                                                View detail
-                                                </a>                    
-                                                <a href="" className="btn-edit btn btn-warning">
-                                                Edit
-                                                </a>                    
-                                                <a href="" className="btn-delete btn btn-danger">
-                                                X
-                                                </a>           
-                                            </div>
-                                    </div>
-                                }
-                                >
-                            </Card>
+                            {renderWork()}
                     </section>
-                </div>
-            </div>
+                </Col>
+            </Row>
         </div>
     </section>
   )

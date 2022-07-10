@@ -63,7 +63,6 @@
 }
 .login-form-forgot{
     @include text($c-primary, $fs-base, $fw-semibold);
-    margin-left: 40%;
 }
 button.ant-btn.ant-btn-default.login-form-button{
     @include text($c-white, $fs-md, $fw-bold);

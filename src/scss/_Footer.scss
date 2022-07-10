@@ -1,16 +1,15 @@
-//footer
 .footer-main {
   padding: 30px 90px;
-  border-top: 2px solid #dee2e6;
   .footer-content {
+    border-top: 2px solid #dee2e6;
     border-bottom: 2px solid #dee2e6;
     display: flex;
     justify-content: space-around;
     .footer-detail {
       margin: 0;
-      h6 {
+      h4 {
         color: rgba(0, 0, 0, 0.85);
-        padding-bottom: 15px;
+        padding: 15px 0;
       }
       li {
         color: #7a7d85;
@@ -38,6 +37,7 @@
       color: #b5b6ba;
     }
     .footer-right {
+      margin: auto;
       color: #74767e;
       margin-right: 50px;
       display: flex;
@@ -95,4 +95,3 @@
     }
   }
 }
-

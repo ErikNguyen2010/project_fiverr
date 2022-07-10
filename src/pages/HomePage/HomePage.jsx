@@ -9,16 +9,19 @@ import Footer from "../../templates/Footer/Footer";
 import { getApiMainJob } from "../../redux/Reducers/jobPage";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import { Menu, Button, Drawer } from "antd";
 import "../../scss/_HomePage.scss";
-import { Button, Drawer } from "antd";
 
 export default function HomePage(props) {
   const [search, setSearch] = useState();
   const history = useHistory();
+  const { SubMenu } = Menu;
   const { arrTypeJob } = useSelector((reducer) => reducer.jobPage);
   const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(false);
+
+  const { userLogin } = useSelector((state) => state.auth);
 
   const showDrawer = () => {
     setVisible(true);
@@ -80,24 +83,93 @@ export default function HomePage(props) {
             <a href="#business">Fiverr Business</a>
             <a href="#explore">Explore</a>
             <a href="#seller">Become a Seller</a>
-            <Link to={"/login"} className="signin">
-              Sign in
-            </Link>
-            <Link to={"/register"} className="join">
-              Join
-            </Link>
+            {!userLogin?._id && (
+              <Link to={"/login"} className="signin">
+                Sign in
+              </Link>
+            )}
+            {!userLogin?._id && (
+              <Link to={"/register"} className="join">
+                Join
+              </Link>
+            )}
+            {userLogin?._id && (
+              <button type="button" className="logout">
+                Log Out
+              </button>
+            )}
           </nav>
         </div>
         <div className="header-main-responsive-1">
           <div className="btn">
-            <button>
+            <Button onClick={showDrawer}>
               <MenuOutlined />
-            </button>
+            </Button>
+            <Drawer
+              headerStyle={{ margin: 0 }}
+              bodyStyle={{ margin: 0 }}
+              closable={false}
+              title={
+                !userLogin?._id ? (
+                  <Link to="/register">
+                    <span>Join Fiverr</span>
+                  </Link>
+                ) : (
+                  <button>Log Out</button>
+                )
+              }
+              placement="left"
+              onClose={onClose}
+              visible={visible}
+              size="200"
+            >
+              <ul type="none">
+                {!userLogin?._id && (
+                  <li>
+                    <Link to="/login">
+                      <p>Sign in</p>
+                    </Link>
+                  </li>
+                )}
+                <li>
+                  <Menu mode="inline">
+                    <SubMenu key="submenu" title="Catgories">
+                      {arrTypeJob.map((typejob, index) => {
+                        return (
+                          <SubMenu key={typejob._id} title={typejob.name}>
+                            {typejob.subTypeJobs.map((subjob, index) => {
+                              return (
+                                <Menu.Item key={subjob._id}>
+                                  <Link to={`/${typejob.name}/${subjob._id}`}>
+                                    {subjob.name}
+                                  </Link>
+                                </Menu.Item>
+                              );
+                            })}
+                          </SubMenu>
+                        );
+                      })}
+                    </SubMenu>
+                  </Menu>
+                </li>
+              </ul>
+            </Drawer>
           </div>
           <a href="/">
             <img src="./images/Fiverr_Logo.jpg" alt="Fiverr_Logo" />
           </a>
-          <span className="join">Join</span>
+          {!userLogin?._id && (
+            <Link to="/register">
+              <span className="join">Join</span>
+            </Link>
+          )}
+          {userLogin?._id && (
+            <span>
+              <button type="button" className="logout">
+                Log Out
+              </button>
+            </span>
+          )}
         </div>
         <div className="header-main-responsive-2">
           <div className="left">
@@ -108,23 +180,73 @@ export default function HomePage(props) {
               headerStyle={{ margin: 0 }}
               bodyStyle={{ margin: 0 }}
               closable={false}
-              title={<button>Join Fiverr</button>}
+              title={
+                !userLogin?._id ? (
+                  <Link to="/register">
+                    <span>Join Fiverr</span>
+                  </Link>
+                ) : (
+                  <button>Log Out</button>
+                )
+              }
               placement="left"
               onClose={onClose}
               visible={visible}
               size="200"
             >
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
+              <ul type="none">
+                {!userLogin?._id && (
+                  <li>
+                    <Link to="/login">
+                      <p>Sign in</p>
+                    </Link>
+                  </li>
+                )}
+                <li>
+                  <Menu mode="inline">
+                    <SubMenu key="submenu" title="Catgories">
+                      {arrTypeJob.map((typejob, index) => {
+                        return (
+                          <SubMenu key={typejob._id} title={typejob.name}>
+                            {typejob.subTypeJobs.map((subjob, index) => {
+                              return (
+                                <Menu.Item key={subjob._id}>
+                                  <Link to={`/${typejob.name}/${subjob._id}`}>
+                                    {subjob.name}
+                                  </Link>
+                                </Menu.Item>
+                              );
+                            })}
+                          </SubMenu>
+                        );
+                      })}
+                    </SubMenu>
+                  </Menu>
+                </li>
+              </ul>
             </Drawer>
             <a href="/">
               <img src="./images/Fiverr_Logo.jpg" alt="Fiverr_Logo" />
             </a>
           </div>
           <div className="right">
-            <span>Sign in</span>
-            <span className="join">Join</span>
+            {!userLogin?._id && (
+              <Link to="/login">
+                <span className="signin">Sign in</span>
+              </Link>
+            )}
+            {!userLogin?._id && (
+              <Link to="/register">
+                <span className="join">Join</span>
+              </Link>
+            )}
+            {userLogin?._id && (
+              <span>
+                <button type="button" className="logout">
+                  Log Out
+                </button>
+              </span>
+            )}
           </div>
         </div>
         <HomeCarousel />
@@ -265,8 +387,7 @@ export default function HomePage(props) {
         <div className="fiverrbusiness-item">
           <div className="fiverrbusiness-content">
             <h2>
-              A business solution <br />
-              designed for <i>teams</i>
+              A business solution designed for <i>teams</i>
             </h2>
             <p>
               Ucpgrade to a curated experience packed with tools
@@ -301,7 +422,9 @@ export default function HomePage(props) {
                 </span>
               </li>
             </ul>
-            <button type="button">Explore Fiverr Business</button>
+            <Link to={"/Business"} className="button">
+              Explore Fiverr Business
+            </Link>
           </div>
           <div className="fiverrbusiness-img">
             <img src="./images/business-desktop.png" alt="..." />
@@ -318,7 +441,9 @@ export default function HomePage(props) {
               Find the <i>talent</i> needed to <br />
               get your business <i>growing</i>.
             </h2>
-            <button>Get Started</button>
+            <Link className="button" to={"/login"}>
+              Get Started
+            </Link>
           </div>
         </div>
       </section>
