@@ -1,12 +1,9 @@
 import React, { memo } from 'react'
-import PersonalInfo from '../../components/PersonalInfo/PersonalInfo'
-import PersonalGig from '../../components/PersonalGig/PersonalGig'
 import { Card, Col, Row } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { userInfoAPI } from '../../redux/reducer/userReducer';
-import { getWork, getWorkDetail, getWorkPersonal, xoaCongViec } from '../../redux/reducer/workReducer';
-import { USER_LOGIN } from '../../util/setting';
+import { getWorkPersonal, xoaCongViec } from '../../redux/reducer/workReducer';
 import { NavLink } from 'react-router-dom';
 
 function Personal(props) {
@@ -53,9 +50,9 @@ function Personal(props) {
                                 </span>
                             </div>
                             <div className='personal__btn'>
-                                <a href="" className="btn-detail btn btn-success">
+                                <NavLink to={`/detail/subjob/${item._id}`} className="btn-detail btn btn-success">
                                 View detail
-                                </a>                    
+                                </NavLink>                    
                                 <NavLink to={`/admin/gig/editgig/${item._id}`} className="btn-edit btn btn-warning">
                                 Edit
                                 </NavLink>                    
@@ -88,7 +85,7 @@ function Personal(props) {
                             <div>
                                 <div className='personal__avatar'>
                                     <a>
-                                        L
+                                        {userInfo.name.length > 5 ? userInfo.name.substr(0,1)  + "" : userInfo.name}
                                     </a>
                                     <div className="personal__camera">
                                         <i className="fa-solid fa-camera"></i>

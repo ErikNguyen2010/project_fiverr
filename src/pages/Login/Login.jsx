@@ -27,7 +27,7 @@ import { USER_LOGIN } from '../../util/setting';
   }
   if(localStorage.getItem(USER_LOGIN)){
     alert('Bạn đã đăng nhập rồi! ')
-    return <Redirect to="/home"/>
+    return <Redirect to="/"/>
   }
   return (
     <section  className="login" style={{padding:"50px 0" ,backgroundColor: "#f7f7f7"}}>
@@ -38,7 +38,7 @@ import { USER_LOGIN } from '../../util/setting';
               <Card
               bordered={true}
               style={{ margin: "0 auto", boxShadow: "0 0 8px #95979d"}}>
-              <h1 className='login__header mb-2'>Sign In to Fiverr</h1>
+              <h1 className='login__header mb-4'>Sign In to Fiverr</h1>
                       <div className='login__apps'>
                       <a href="https://www.facebook.com/" className='btn-facebook btn btn-primary'>
                           <i className='fab fa-facebook'></i>

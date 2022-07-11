@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { MenuOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import HomeCarousel from "./HomeCarousel";
 import Services from "./ServicesHome/Services";
@@ -8,11 +8,87 @@ import Reviews from "./Reviews";
 import Footer from "../../templates/Footer/Footer";
 import { getApiMainJob } from "../../redux/Reducers/jobPage";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import { Menu, Button, Drawer } from "antd";
+import { Link, NavLink, useHistory } from "react-router-dom";
+import { Menu, Button, Drawer, Dropdown, Space } from "antd";
+import { DownOutlined, SmileOutlined } from '@ant-design/icons';
 import "../../scss/_HomePage.scss";
 
 export default function HomePage(props) {
+  const { userLogin } = useSelector((state) => state.auth);
+
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: '1',
+          label: (
+            <NavLink  style={{ display:"block" ,padding:"10px 0" ,color: "#62646a", fontSize: "18px", fontWeight: "700"}} to={`/personal/${userLogin._id}`} >
+            Personal Page
+            </NavLink>
+          ),
+        },
+        {
+          key: '2',
+          label: (
+            <NavLink  style={{ display:"block" ,padding:"10px 0" ,color: "#62646a", fontSize: "18px", fontWeight: "700"}} to={`/admin/user`} >
+            Admin Page
+            </NavLink>
+          ),
+        },
+        {
+          key: '3',
+          label: (
+            <NavLink  style={{ display:"block" ,padding:"10px 0" ,color: "#62646a", fontSize: "18px", fontWeight: "700"}} to={`/admin/user/infouser/${userLogin._id}`} >
+            Personal Detail
+            </NavLink>
+          ),
+        },
+      ]}
+    />
+  );
+  const renderLogin = () =>{
+    if(_.isEmpty(userLogin)){
+      return <Fragment >
+        <div className='d-flex justify-content-end'>
+          <NavLink to="/login" className='btn__login btn btn-success'  type="primary">
+              Login
+              </NavLink>
+              <NavLink  className='btn__register ml-2 btn btn-primary' to='/register' type="primary">
+              Register
+              </NavLink>
+        </div>
+      </Fragment>
+    }
+    return <Fragment>
+   
+       <div className='d-flex justify-content-end'>
+       <Dropdown overlay={menu} trigger={['click']}>
+    <a onClick={(e) => e.preventDefault()}>
+      <Space className='btn__login btn'>
+      <i className="fa-solid fa-user-ninja"></i> hi {userLogin.email}
+        <DownOutlined style={{position:"relative", top:"-3px"}} />
+      </Space>
+    </a>
+  </Dropdown>
+      
+
+        <NavLink to="/" className='ml-2 btn__logout btn btn-danger' onClick={() =>{
+          if(window.confirm("Bạn có muốn đăng xuất không?")){
+            // xóa mọi dữ liệu trong localstorage
+            localStorage.removeItem("token");
+            localStorage.removeItem("userLogin");
+            
+          }
+          props.history.push('/')
+          window.location.reload()
+          //chuyen hướng về home và reload lại trang
+        }} type="primary">
+        Log Out
+        
+        </NavLink>
+       </div>
+    </Fragment>
+  }
   const [search, setSearch] = useState();
   const history = useHistory();
   const { SubMenu } = Menu;
@@ -27,7 +103,6 @@ export default function HomePage(props) {
 
   const [visible, setVisible] = useState(false);
 
-  const { userLogin } = useSelector((state) => state.auth);
 
   const showDrawer = () => {
     setVisible(true);
@@ -86,10 +161,10 @@ export default function HomePage(props) {
             </a>
           </div>
           <nav>
-            <a href="#business">Fiverr Business</a>
-            <a href="#explore">Explore</a>
-            <a href="#seller">Become a Seller</a>
-            {!userLogin?._id && (
+            <a className="navigation" href="#business">Fiverr Business</a>
+            <a className="navigation" href="#explore">Explore</a>
+            <a className="navigation" href="#seller">Become a Seller</a>
+            {/* {!userLogin?._id && (
               <Link to={"/login"} className="signin">
                 Sign in
               </Link>
@@ -103,7 +178,8 @@ export default function HomePage(props) {
               <button onClick={logout} type="button" className="logout">
                 Log Out
               </button>
-            )}
+            )} */}
+          {renderLogin()}
           </nav>
         </div>
         <div className="header-main-responsive-1">

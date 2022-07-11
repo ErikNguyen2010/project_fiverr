@@ -93,7 +93,7 @@ setIsModalVisible(false);
 };
 if(localStorage.getItem(USER_LOGIN)){
     alert('Bạn đã có tài khoản rồi! ')
-    return <Redirect to="/home"/>
+    return <Redirect to="/"/>
   } 
   return (
     <section className='register' style={{padding:"50px 0" ,backgroundColor: "#f7f7f7"}}>
@@ -104,7 +104,7 @@ if(localStorage.getItem(USER_LOGIN)){
               <Card
               bordered={true}
               style={{ margin: "0 auto", boxShadow: "0 0 8px #95979d"}}>
-            <h1 className='register__header'>Join Fiverr</h1>
+            <h1 className='register__header mb-4'>Join Fiverr</h1>
                     <div className='register__apps'>
                       <a href="https://www.facebook.com/" className='btn-facebook btn btn-primary'>
                         <i className='fab fa-facebook'></i>
