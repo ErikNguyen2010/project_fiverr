@@ -85,7 +85,7 @@ function Personal(props) {
                             <div>
                                 <div className='personal__avatar'>
                                     <a>
-                                        {userInfo.name.length > 5 ? userInfo.name.substr(0,1)  + "" : userInfo.name}
+                                        L
                                     </a>
                                     <div className="personal__camera">
                                         <i className="fa-solid fa-camera"></i>
