@@ -21,5 +21,6 @@ export const store = configureStore ({
         auth: userReducer,
         loadingReducer: loadingReducer,
         workReducer,
+        userReducer,
     }
 })

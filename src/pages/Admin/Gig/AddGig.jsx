@@ -128,7 +128,7 @@ import { Redirect } from 'react-router-dom';
                 </Form.Item>
                 
                 <Form.Item>
-                <button style={{marginLeft:"30%"}} className='btn-add btn btn-success' type='submit'>Xác Nhận</button>
+                <button style={{marginLeft:"30%"}} className='btn__login btn btn-success' type='submit'>Xác Nhận</button>
 
                 </Form.Item>
             </Form>

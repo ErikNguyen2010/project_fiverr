@@ -9,6 +9,8 @@ import {store} from './redux/configStore';
 
 import './index.css';
 import './scss/index.scss';
+import './assets/scss/index.scss';
+
 
 
 
